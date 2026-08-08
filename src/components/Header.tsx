@@ -174,7 +174,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Navigation Tabs */}
-          <nav className="flex items-center space-x-1 bg-black/20 p-1 rounded-xl border border-white/10">
+          <nav className="flex items-center space-x-1 bg-black/20 p-1 rounded-xl border border-white/10 overflow-x-auto">
             <button
               onClick={() => setActiveTab('lista')}
               className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
