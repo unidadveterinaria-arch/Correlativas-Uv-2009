@@ -57,12 +57,10 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           
           {/* Logo & Title */}
-          <div className="flex items-center space-x-3.5">
-            <UnidadVeterinariaLogoHorizontal className="hidden sm:inline-flex shrink-0 scale-95" />
-            <div className="p-2.5 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 shadow-inner sm:hidden">
-              <GraduationCap className="w-8 h-8 text-[#fec975]" />
-            </div>
-            <div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5">
+            <UnidadVeterinariaLogoHorizontal className="inline-flex shrink-0 scale-95" />
+            
+            <div className="mt-2 sm:mt-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-xs font-semibold uppercase tracking-wider bg-[#fec975] text-[#003217] px-2 py-0.5 rounded-full font-sans">
                   FCV - UNR
