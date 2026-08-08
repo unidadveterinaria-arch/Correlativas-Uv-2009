@@ -1,5 +1,5 @@
 import React from 'react';
-import logoUV from './logo-uv.png'; // <-- 1. Importamos tu archivo de imagen
+import logoUV from './logo-uv.png';
 
 interface LogoProps {
   className?: string;
@@ -8,13 +8,8 @@ interface LogoProps {
 }
 
 export const UnidadVeterinariaEmblem: React.FC<{ className?: string }> = ({ className = "w-12 h-12" }) => {
-  // 2. Reemplazamos el dibujo SVG por la etiqueta img
   return (
     <img src={logoUV} alt="Logo Unidad Veterinaria" className={className} />
-  );
-};
-
-// ... (Deja el resto del código de LogoHorizontal, LogoVertical y LogoBadge exactamente como estaba) ...
   );
 };
 
