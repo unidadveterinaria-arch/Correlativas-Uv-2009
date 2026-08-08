@@ -374,136 +374,141 @@ export const AcademicCalendar: React.FC<AcademicCalendarProps> = ({
         </div>
       </div>
 
-      {/* Main Content Area */}
+     {/* Main Content Area */}
       {viewMode === 'calendar' ? (
         /* CALENDAR GRID VIEW */
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-          {/* Header Days of Week */}
-          <div className="grid grid-cols-7 bg-slate-100 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 text-center text-xs font-bold text-slate-600 dark:text-slate-300 py-2.5">
-            <div>Lun</div>
-            <div>Mar</div>
-            <div>Mié</div>
-            <div>Jue</div>
-            <div>Vie</div>
-            <div className="text-rose-600 dark:text-rose-400">Sáb</div>
-            <div className="text-rose-600 dark:text-rose-400">Dom</div>
-          </div>
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-x-auto">
+          {/* NUEVO: Contenedor con ancho mínimo para evitar que se apriete */}
+          <div className="min-w-[800px]">
+            
+            {/* Header Days of Week */}
+            <div className="grid grid-cols-7 bg-slate-100 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 text-center text-xs font-bold text-slate-600 dark:text-slate-300 py-2.5">
+              <div>Lun</div>
+              <div>Mar</div>
+              <div>Mié</div>
+              <div>Jue</div>
+              <div>Vie</div>
+              <div className="text-rose-600 dark:text-rose-400">Sáb</div>
+              <div className="text-rose-600 dark:text-rose-400">Dom</div>
+            </div>
 
-          {/* Days Grid */}
-          <div className="grid grid-cols-7 auto-rows-fr divide-x divide-y divide-slate-100 dark:divide-slate-800">
-            {/* Blank offset cells for start of month */}
-            {Array.from({ length: firstDayOffset }).map((_, i) => (
-              <div
-                key={`offset-${i}`}
-                className="bg-slate-50/50 dark:bg-slate-950/30 min-h-[110px] sm:min-h-[130px]"
-              />
-            ))}
-
-            {/* Days of month */}
-            {filteredDays.map((day) => {
-              const isWeekend = day.dayOfWeekName === 'Sábado' || day.dayOfWeekName === 'Domingo';
-              const hasExams = day.filteredExams.length > 0;
-              const hasMilestones = day.filteredMilestones.length > 0;
-
-              return (
+            {/* Days Grid */}
+            <div className="grid grid-cols-7 auto-rows-fr divide-x divide-y divide-slate-100 dark:divide-slate-800">
+              {/* Blank offset cells for start of month */}
+              {Array.from({ length: firstDayOffset }).map((_, i) => (
                 <div
-                  key={day.dateStr}
-                  className={`min-h-[120px] sm:min-h-[140px] p-2 flex flex-col justify-between transition-colors ${
-                    day.isNonWorkingDay
-                      ? 'bg-rose-50/30 dark:bg-rose-950/10'
-                      : 'bg-white dark:bg-slate-900'
-                  } ${
-                    hasExams ? 'hover:bg-emerald-50/20 dark:hover:bg-emerald-950/10' : ''
-                  }`}
-                >
-                  {/* Day header */}
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span
-                      className={`text-xs sm:text-sm font-bold font-mono px-2 py-0.5 rounded-lg ${
-                        hasExams
-                          ? 'bg-emerald-600 text-white shadow-xs'
-                          : isWeekend || day.isNonWorkingDay
-                          ? 'text-rose-600 dark:text-rose-400 font-semibold'
-                          : 'text-slate-700 dark:text-slate-300'
-                      }`}
-                    >
-                      {day.dayNumber}
-                    </span>
-                    {hasExams && (
-                      <span className="text-[10px] font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-950 px-1.5 py-0.5 rounded-full">
-                        {day.filteredExams.length} {day.filteredExams.length === 1 ? 'materia' : 'materias'}
-                      </span>
-                    )}
-                  </div>
+                  key={`offset-${i}`}
+                  className="bg-slate-50/50 dark:bg-slate-950/30 min-h-[110px] sm:min-h-[130px]"
+                />
+              ))}
 
-                  {/* Day items content */}
-                  <div className="space-y-1 flex-1 overflow-y-auto max-h-[130px] scrollbar-thin scrollbar-thumb-slate-200">
-                    {/* Milestones / Holidays */}
-                    {day.filteredMilestones.map((m, idx) => (
-                      <div
-                        key={`m-${idx}`}
-                        className={`p-1.5 rounded-lg text-[11px] leading-tight border ${
-                          m.type === 'feriado'
-                            ? 'bg-rose-100 dark:bg-rose-950/60 border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200'
-                            : m.type === 'inscripcion_guarani'
-                            ? 'bg-amber-100 dark:bg-amber-950/60 border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200'
-                            : 'bg-blue-100 dark:bg-blue-950/60 border-blue-200 dark:border-blue-800 text-blue-900 dark:text-blue-200'
+              {/* Days of month */}
+              {filteredDays.map((day) => {
+                const isWeekend = day.dayOfWeekName === 'Sábado' || day.dayOfWeekName === 'Domingo';
+                const hasExams = day.filteredExams.length > 0;
+                const hasMilestones = day.filteredMilestones.length > 0;
+
+                return (
+                  <div
+                    key={day.dateStr}
+                    className={`min-h-[120px] sm:min-h-[140px] p-2 flex flex-col justify-between transition-colors ${
+                      day.isNonWorkingDay
+                        ? 'bg-rose-50/30 dark:bg-rose-950/10'
+                        : 'bg-white dark:bg-slate-900'
+                    } ${
+                      hasExams ? 'hover:bg-emerald-50/20 dark:hover:bg-emerald-950/10' : ''
+                    }`}
+                  >
+                    {/* Day header */}
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span
+                        className={`text-xs sm:text-sm font-bold font-mono px-2 py-0.5 rounded-lg ${
+                          hasExams
+                            ? 'bg-emerald-600 text-white shadow-xs'
+                            : isWeekend || day.isNonWorkingDay
+                            ? 'text-rose-600 dark:text-rose-400 font-semibold'
+                            : 'text-slate-700 dark:text-slate-300'
                         }`}
-                        title={m.description}
                       >
-                        <span className="font-semibold block">{m.title}</span>
-                      </div>
-                    ))}
+                        {day.dayNumber}
+                      </span>
+                      {hasExams && (
+                        <span className="text-[10px] font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-950 px-1.5 py-0.5 rounded-full">
+                          {day.filteredExams.length} {day.filteredExams.length === 1 ? 'materia' : 'materias'}
+                        </span>
+                      )}
+                    </div>
 
-                    {/* Exams */}
-                    {day.filteredExams.map((exam, idx) => {
-                      const evalItem = evaluations[exam.subjectCode];
-                      const canTake = evalItem?.state === 'regular' || (evalItem?.state === 'pendiente' && evalItem?.isEnabled);
-                      const isApproved = evalItem?.state === 'aprobada';
-
-                      return (
+                    {/* Day items content */}
+                    <div className="space-y-1 flex-1 overflow-y-auto max-h-[130px] scrollbar-thin scrollbar-thumb-slate-200">
+                      {/* Milestones / Holidays */}
+                      {day.filteredMilestones.map((m, idx) => (
                         <div
-                          key={`e-${idx}`}
-                          onClick={() => onSubjectSelect && onSubjectSelect(exam.subjectCode)}
-                          className={`p-1.5 rounded-lg text-[11px] leading-tight border transition-all cursor-pointer group ${
-                            isApproved
-                              ? 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 opacity-75'
-                              : canTake
-                              ? 'bg-emerald-50 dark:bg-emerald-950/50 border-emerald-300 dark:border-emerald-700 text-emerald-900 dark:text-emerald-100 hover:border-emerald-500 hover:shadow-xs'
-                              : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-slate-400'
+                          key={`m-${idx}`}
+                          className={`p-1.5 rounded-lg text-[11px] leading-tight border ${
+                            m.type === 'feriado'
+                              ? 'bg-rose-100 dark:bg-rose-950/60 border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200'
+                              : m.type === 'inscripcion_guarani'
+                              ? 'bg-amber-100 dark:bg-amber-950/60 border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200'
+                              : 'bg-blue-100 dark:bg-blue-950/60 border-blue-200 dark:border-blue-800 text-blue-900 dark:text-blue-200'
                           }`}
+                          title={m.description}
                         >
-                          <div className="flex items-center justify-between gap-1 mb-0.5">
-                            <span className="font-mono text-[10px] font-bold text-emerald-700 dark:text-emerald-400">
-                              {exam.subjectCode}
-                            </span>
-                            {isApproved ? (
-                              <span className="text-[9px] bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-1 rounded">
-                                Aprobada
-                              </span>
-                            ) : canTake ? (
-                              <span className="text-[9px] bg-emerald-200 dark:bg-emerald-800 text-emerald-900 dark:text-emerald-100 font-semibold px-1 rounded flex items-center gap-0.5">
-                                <Check className="w-2.5 h-2.5" /> Podés rendir
-                              </span>
-                            ) : null}
-                          </div>
-                          <div className="font-medium line-clamp-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-300">
-                            {exam.subjectName}
-                          </div>
-                          <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 flex items-center justify-between">
-                            <span className="truncate">{exam.turnName}</span>
-                            <span>{exam.timeStr}</span>
-                          </div>
+                          <span className="font-semibold block">{m.title}</span>
                         </div>
-                      );
-                    })}
+                      ))}
+
+                      {/* Exams */}
+                      {day.filteredExams.map((exam, idx) => {
+                        const evalItem = evaluations[exam.subjectCode];
+                        const canTake = evalItem?.state === 'regular' || (evalItem?.state === 'pendiente' && evalItem?.isEnabled);
+                        const isApproved = evalItem?.state === 'aprobada';
+
+                        return (
+                          <div
+                            key={`e-${idx}`}
+                            onClick={() => onSubjectSelect && onSubjectSelect(exam.subjectCode)}
+                            className={`p-1.5 rounded-lg text-[11px] leading-tight border transition-all cursor-pointer group ${
+                              isApproved
+                                ? 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 opacity-75'
+                                : canTake
+                                ? 'bg-emerald-50 dark:bg-emerald-950/50 border-emerald-300 dark:border-emerald-700 text-emerald-900 dark:text-emerald-100 hover:border-emerald-500 hover:shadow-xs'
+                                : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-slate-400'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between gap-1 mb-0.5">
+                              <span className="font-mono text-[10px] font-bold text-emerald-700 dark:text-emerald-400">
+                                {exam.subjectCode}
+                              </span>
+                              {isApproved ? (
+                                <span className="text-[9px] bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-1 rounded">
+                                  Aprobada
+                                </span>
+                              ) : canTake ? (
+                                <span className="text-[9px] bg-emerald-200 dark:bg-emerald-800 text-emerald-900 dark:text-emerald-100 font-semibold px-1 rounded flex items-center gap-0.5">
+                                  <Check className="w-2.5 h-2.5" /> Podés rendir
+                                </span>
+                              ) : null}
+                            </div>
+                            <div className="font-medium line-clamp-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-300">
+                              {exam.subjectName}
+                            </div>
+                            <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 flex items-center justify-between">
+                              <span className="truncate">{exam.turnName}</span>
+                              <span>{exam.timeStr}</span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       ) : (
+        /* CHRONOLOGICAL LIST VIEW */
         /* CHRONOLOGICAL LIST VIEW */
         <div className="space-y-4">
           {filteredDays
