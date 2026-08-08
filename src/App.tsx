@@ -169,7 +169,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8faf4] text-[#191c19] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#f8faf4] text-[#191c19] flex flex-col font-sans overflow-x-hidden">
       
       {/* Hidden File Input for Backup Restoration */}
       <input
