@@ -174,7 +174,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Navigation Tabs */}
-          <nav className="flex items-center space-x-1 bg-black/20 p-1 rounded-xl border border-white/10 overflow-x-auto">
+         <nav className="flex items-center space-x-1 bg-black/20 p-1 rounded-xl border border-white/10 overflow-x-auto">
             <button
               onClick={() => setActiveTab('lista')}
               className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
@@ -185,45 +185,6 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>Materias</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('arbol')}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                activeTab === 'arbol'
-                  ? 'bg-white/20 text-white font-semibold'
-                  : 'text-emerald-100 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              <GitFork className="w-3.5 h-3.5" />
-              <span>Mapa de Correlativas</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('simulador')}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                activeTab === 'simulador'
-                  ? 'bg-[#fec975] text-[#003217] font-bold shadow-sm'
-                  : 'text-emerald-100 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#fec975]" />
-              <span>Simulador</span>
-              {isSimulating && (
-                <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-              )}
-            </button>
-
-            <button
-              onClick={() => setActiveTab('estadisticas')}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                activeTab === 'estadisticas'
-                  ? 'bg-white/20 text-white font-semibold'
-                  : 'text-emerald-100 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              <BarChart3 className="w-3.5 h-3.5" />
-              <span>Estadísticas</span>
             </button>
 
             <button
