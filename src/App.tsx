@@ -201,19 +201,9 @@ export default function App() {
       {/* Body Content */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
         
-        {/* Tab 1: Subject List View */}
+       {/* Tab 1: Subject List View */}
         {activeTab === 'lista' && (
           <div className="space-y-6">
-            <DashboardStats
-              progress={progress}
-              viewMode={viewMode}
-              readyToCourseCount={readyToCourseCount}
-              readyToExamCount={readyToExamCount}
-              activeFilter={activeFilter}
-              onFilterChange={setActiveFilter}
-              onQuickAction={handleQuickAction}
-            />
-
             <AccordionYearList
               evaluations={evaluations}
               viewMode={viewMode}
