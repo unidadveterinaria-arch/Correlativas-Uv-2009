@@ -205,53 +205,67 @@ export default function App() {
         {activeTab === 'lista' && (
           <div className="space-y-6">
             <AccordionYearList
-             {/* BLOQUE NUEVO: Plan, Progreso y Botones */}
-        <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm space-y-4">
-          <div className="text-center sm:text-left">
-            <h3 className="text-xs sm:text-sm font-semibold text-emerald-800">
-              Plan de Estudios 2009 · Medicina Veterinaria · FCV‑UNR
-            </h3>
-          </div>
+            {/* Tab 1: Subject List View */}
+        {activeTab === 'lista' && (
+          <div className="space-y-6">
+            
+            {/* Caja de progreso y botones */}
+            <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm space-y-4">
+              <div className="text-center sm:text-left">
+                <h3 className="text-xs sm:text-sm font-semibold text-emerald-800">
+                  Plan de Estudios 2009 · Medicina Veterinaria · FCV‑UNR
+                </h3>
+              </div>
 
-          <div className="space-y-1.5">
-            <div className="flex justify-between text-xs font-medium text-slate-700">
-              <span>Aprobadas: {approvedCount} / {SUBJECTS.length}</span>
-              <span>Regularizadas: {regularizedCount}</span>
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-xs font-medium text-slate-700">
+                  <span>Aprobadas: {approvedCount} / {SUBJECTS.length}</span>
+                  <span>Regularizadas: {regularizedCount}</span>
+                </div>
+                <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                  <div 
+                    className="bg-emerald-600 h-full rounded-full transition-all duration-500" 
+                    style={{ width: `${Math.round((approvedCount / SUBJECTS.length) * 100)}%` }}
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={() => setViewMode('cursar')}
+                  className={`flex-1 py-2.5 px-4 rounded-xl font-semibold text-xs sm:text-sm transition-all shadow-xs flex justify-center items-center gap-2 ${
+                    viewMode === 'cursar'
+                      ? 'bg-[#c6893f] text-white'
+                      : 'bg-slate-50 text-slate-700 border border-slate-200 hover:border-[#c6893f]/50'
+                  }`}
+                >
+                  Qué puedo cursar ({readyToCourseCount})
+                </button>
+
+                <button
+                  onClick={() => setViewMode('rendir')}
+                  className={`flex-1 py-2.5 px-4 rounded-xl font-semibold text-xs sm:text-sm transition-all shadow-xs flex justify-center items-center gap-2 ${
+                    viewMode === 'rendir'
+                      ? 'bg-[#c6893f] text-white'
+                      : 'bg-slate-50 text-slate-700 border border-slate-200 hover:border-[#c6893f]/50'
+                  }`}
+                >
+                  Qué puedo rendir ({readyToExamCount})
+                </button>
+              </div>
             </div>
-            <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-              <div 
-                className="bg-emerald-600 h-full rounded-full transition-all duration-500" 
-                style={{ width: `${Math.round((approvedCount / SUBJECTS.length) * 100)}%` }}
-              />
-            </div>
+
+            {/* Lista de materias */}
+            <AccordionYearList
+              evaluations={evaluations}
+              viewMode={viewMode}
+              onStateChange={handleStateChange}
+              activeFilter={activeFilter}
+              setActiveFilter={setActiveFilter}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              highlightedSubjectCode={highlightedSubjectCode}
+              onSelectSubject={handleSelectSubject}
+            />
           </div>
-
-          <div className="flex flex-col sm:flex-row gap-3">
-            <button
-              onClick={() => setViewMode('cursar')}
-              className={`flex-1 py-2.5 px-4 rounded-xl font-semibold text-xs sm:text-sm transition-all shadow-xs flex justify-center items-center gap-2 ${
-                viewMode === 'cursar'
-                  ? 'bg-[#c6893f] text-white'
-                  : 'bg-slate-50 text-slate-700 border border-slate-200 hover:border-[#c6893f]/50'
-              }`}
-            >
-              Qué puedo cursar ({readyToCourseCount})
-            </button>
-
-            <button
-              onClick={() => setViewMode('rendir')}
-              className={`flex-1 py-2.5 px-4 rounded-xl font-semibold text-xs sm:text-sm transition-all shadow-xs flex justify-center items-center gap-2 ${
-                viewMode === 'rendir'
-                  ? 'bg-[#c6893f] text-white'
-                  : 'bg-slate-50 text-slate-700 border border-slate-200 hover:border-[#c6893f]/50'
-              }`}
-            >
-              Qué puedo rendir ({readyToExamCount})
-            </button>
-          </div>
-        </div>
-        {/* FIN DEL BLOQUE NUEVO */}
-
-        <AccordionYearList activeFilter="{activeFilter}" evaluations="{evaluations}" highlightedSubjectCode="{highlightedSubjectCode}" onSelectSubject="{handleSelectSubject}" onStateChange="{handleStateChange}" searchQuery="{searchQuery}" setActiveFilter="{setActiveFilter}" setSearchQuery="{setSearchQuery}" viewMode="{viewMode}"/>
-      </div>
-    )}
+        )}
